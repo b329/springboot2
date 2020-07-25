@@ -1,17 +1,18 @@
 buildscript {
     ext{
-        springBooVersion = '2.1.7.RELEASE'
+        springBootVersion = '2.2.0.RELEASE'
     }
     repositories {
         mavenCentral()
-        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-pligin:${springBooVersion}")
-}
 
+apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -19,7 +20,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group 'org.quantum.spin.entanglement'
 version '1.0-SNAPSHOT'
-sourceCompatiblity = 1.8
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -29,5 +30,4 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
