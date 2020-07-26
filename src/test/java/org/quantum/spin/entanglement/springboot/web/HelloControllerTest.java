@@ -1,4 +1,4 @@
-package org.quantum.spin.entanglement.springboot;
+package org.quantum.spin.entanglement.springboot.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
