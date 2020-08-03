@@ -1,7 +1,6 @@
 package org.quantum.spin.entanglement.springboot.web.dto;
 
 import org.junit.Test;
-import web.dto.HelloResponseDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
