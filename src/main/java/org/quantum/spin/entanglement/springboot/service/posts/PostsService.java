@@ -2,12 +2,12 @@ package org.quantum.spin.entanglement.springboot.service.posts;
 
 import lombok.RequiredArgsConstructor;
 import org.quantum.spin.entanglement.springboot.domain.posts.PostsRepository;
+import org.quantum.spin.entanglement.springboot.domain.posts.Posts;
+import org.quantum.spin.entanglement.springboot.web.dto.PostsResponseDto;
 import org.quantum.spin.entanglement.springboot.web.dto.PostsSaveRequestDto;
+import org.quantum.spin.entanglement.springboot.web.dto.PostsUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-@RequiredArgsConstructor
-@Service
 
 // @Autowired 가 없는 이유는 빈을 주입받는 방식에
 // @Autowired setter 생성자 주압 방식이 있는데
@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 // 생성자를 직접 안쓰고 lombok 을 사용하는 이점은 해당 클래스의 의존성 관계가 변경될때마다 생성자코드를 계속해서 수정해야 하는 번거로움을
 // 피하기 위해서이다.
 
+@RequiredArgsConstructor
+@Service
 public class PostsService {
     private final PostsRepository postsRepository;
 
@@ -23,4 +25,22 @@ public class PostsService {
     public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
+
+    @Transactional
+    public Long update(Long id, PostsUpdateRequestDto requestDto) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
+
+        posts.update(requestDto.getTitle(), requestDto.getContent());
+
+                return id;
+    }
+
+    public PostsResponseDto findById(Long id) {
+        Posts entity = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        return new PostsResponseDto(entity);
+    }
+
+
 }
