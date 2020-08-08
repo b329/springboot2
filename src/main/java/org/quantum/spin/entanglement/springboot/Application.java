@@ -4,8 +4,7 @@ import org.quantum.spin.entanglement.springboot.web.HelloController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-
-@SpringBootApplication
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /* Consider defining a bean of type 'org.quantum.spin.entanglement.springboot.service.posts.PostsService' in your configuration.
 *  아래 테스트들은 psringboot package 안에 다른 연관된 package 들이 없고 떨어져 있을때 default 로 scan 하지 않기 때문에 component 들을 읽을 수 없는
@@ -25,6 +24,9 @@ import org.springframework.context.annotation.ComponentScan;
 //@ComponentScan(basePackages = "org.quantum.spin.entanglement.springboot")
 //@EnableAutoConfiguration
 //@ComponentScan
+
+@EnableJpaAuditing // JPA Auditing 활성화.
+@SpringBootApplication
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
