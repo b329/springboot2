@@ -7,8 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /* Consider defining a bean of type 'org.quantum.spin.entanglement.springboot.service.posts.PostsService' in your configuration.
-*  아래 테스트들은 psringboot package 안에 다른 연관된 package 들이 없고 떨어져 있을때 default 로 scan 하지 않기 때문에 component 들을 읽을 수 없는
-*  경우가 생긴다.
+*  아래 테스트들은 sringboot package 안에 다른 연관된 package 들이 없고 떨어져 있을때 default 로 scan 하지 않기 때문에 component 들을 읽을 수 없는 경우가 생긴다.
 *  그래서 처음 프로젝트를 만드는 경우에 아래와 같은 실수를 하는 경우가 생긴다.
 * 스프링은 프로젝트 전체를 스캔하지 않고, @SpringBootApplcation 를 기준으로 스캔해서 Bean 대상에 포함시키는데요.
   서비스 패키지가 외부에 있다보니 읽어오질 못해서 발생한 에러입니다.
