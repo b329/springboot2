@@ -3,11 +3,16 @@ package org.quantum.spin.entanglement.springboot.service.posts;
 import lombok.RequiredArgsConstructor;
 import org.quantum.spin.entanglement.springboot.domain.posts.PostsRepository;
 import org.quantum.spin.entanglement.springboot.domain.posts.Posts;
+import org.quantum.spin.entanglement.springboot.web.dto.PostsListResponseDto;
 import org.quantum.spin.entanglement.springboot.web.dto.PostsResponseDto;
 import org.quantum.spin.entanglement.springboot.web.dto.PostsSaveRequestDto;
 import org.quantum.spin.entanglement.springboot.web.dto.PostsUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
 @Autowired 가 없는 이유는 빈을 주입받는 방식에
@@ -37,6 +42,15 @@ public class PostsService {
 
                 return id;
     }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+
+    }
+
 
     public PostsResponseDto findById(Long id) {
         Posts entity = postsRepository.findById(id)

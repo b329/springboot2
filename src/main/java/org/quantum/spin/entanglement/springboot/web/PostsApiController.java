@@ -5,6 +5,7 @@ import org.quantum.spin.entanglement.springboot.service.posts.PostsService;
 import org.quantum.spin.entanglement.springboot.web.dto.PostsResponseDto;
 import org.quantum.spin.entanglement.springboot.web.dto.PostsSaveRequestDto;
 import org.quantum.spin.entanglement.springboot.web.dto.PostsUpdateRequestDto;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
