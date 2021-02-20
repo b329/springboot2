@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /* Consider defining a bean of type 'org.quantum.spin.entanglement.springboot.service.posts.PostsService' in your configuration.
 *  아래 테스트들은 sringboot package 안에 다른 연관된 package 들이 없고 떨어져 있을때 default 로 scan 하지 않기 때문에 component 들을 읽을 수 없는 경우가 생긴다.
@@ -24,6 +25,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 //@EnableAutoConfiguration
 //@ComponentScan
 
+@EnableSwagger2
 @EnableJpaAuditing // JPA Auditing 활성화.
 @SpringBootApplication
 public class Application {
