@@ -7,6 +7,10 @@ import org.quantum.spin.entanglement.springboot.api.dto.UsersSaveRequestDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersUpdateRequestDto;
 import org.quantum.spin.entanglement.springboot.domain.users.Users;
 import org.quantum.spin.entanglement.springboot.domain.users.UsersRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +63,11 @@ public class UsersService {
 
     }
 
+    @Transactional(readOnly = true)
+    public Page<Users> retrievePageUsers(Pageable pageable) {
+        return usersRepository.findAll(pageable);
+    }
+
 
     public UsersResponseDto findById(Long id) {
         Users entity = usersRepository.findById(id)
@@ -76,5 +85,4 @@ public class UsersService {
 
         return testUser;
     }
-
 }

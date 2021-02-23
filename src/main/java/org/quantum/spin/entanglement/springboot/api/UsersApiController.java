@@ -1,12 +1,19 @@
 package org.quantum.spin.entanglement.springboot.api;
 
 import lombok.RequiredArgsConstructor;
+import org.quantum.spin.entanglement.springboot.api.dto.UsersListResponseDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersResponseDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersSaveRequestDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersUpdateRequestDto;
 import org.quantum.spin.entanglement.springboot.domain.users.Users;
 import org.quantum.spin.entanglement.springboot.service.users.UsersService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -43,6 +50,16 @@ public class UsersApiController {
     @GetMapping("/api/v1/users/{id}")
     public UsersResponseDto findById (@PathVariable Long id) {
         return usersService.findById(id);
+    }
+
+    @GetMapping("/api/v1/users")
+    public List<UsersListResponseDto> retrieveUsers() {
+        return usersService.findAllDesc();
+    }
+
+    @GetMapping("/api/v1/users/pages")
+    public Page<UsersResponseDto> retrievePageUsers(final Pageable pageable) {
+        return usersService.retrievePageUsers(pageable).map(UsersResponseDto::new);
     }
 
     @GetMapping("/api/v1/users/test")
