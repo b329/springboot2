@@ -1,0 +1,36 @@
+package org.quantum.spin.entanglement.springboot.api.dto;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.quantum.spin.entanglement.springboot.domain.orders.Orders;
+import org.quantum.spin.entanglement.springboot.domain.users.Users;
+
+/* Entity 클래스와 유사한 Dto 클래스를 추가로 생성한 이유는 Entity 클래스를 Request/Response 클래스로
+*  사용하지 않기 위해사이다. Entity 클래스는 데이터베이스와 맞닿은 클래스이고
+*  Entity 클래스를 변경하면 스키마 자체가 변경이 된다.
+*  Entity 클래스가 변경이되면 여러 클래스에 영향을 끼치지만 Request 와 Response 용 Dto 는 view 를 위한 클래스라
+*  자주 변경이 필요한 경우가 있다.
+*  결론적으로 ViewLayer 와 DB layer 와 분리하는 것이 바람직하고
+*  Controller 에서는 결과 값으로 여러 테이블을 조인해서 사용하는 경우가 빈번하다. */
+
+@Getter
+@NoArgsConstructor
+
+public class OrdersSaveRequestDto {
+    private  String orderNumber;
+    private  String productNo;
+
+    @Builder
+    public OrdersSaveRequestDto(String orderNumber, String productNo) {
+        this.orderNumber = orderNumber;
+        this.productNo = productNo;
+    }
+
+    public Orders toEntity() {
+        return Orders.builder()
+                    .orderNumber(orderNumber)
+                    .productNo(productNo)
+                    .build();
+    }
+}
