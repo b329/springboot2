@@ -1,5 +1,5 @@
-# springboot2
-springboot2 makring framework
+# springboot2.3
+springboot2 making framework
 
 branch 에 대한 설명
 develop_1 : 기본 framework 까지
