@@ -38,19 +38,29 @@ public class UsersService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public Long save(UsersSaveRequestDto requestDto) {
-        return usersRepository.save(requestDto.toEntity()).getId();
+    public Long memberJoin(UsersSaveRequestDto requestDto) {
+        return usersRepository.save(
+                Users.builder()
+                        .name(requestDto.toEntity().getName())
+                        .nickname(requestDto.toEntity().getNickname())
+                        .password(passwordEncoder.encode(requestDto.toEntity().getPassword()))
+                        .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                        .build()).getId();
     }
 
     @Transactional
-    public Long saveJoin(UsersSaveRequestDto requestDto) {
-        return usersRepository.save(
-                Users.builder()
-                 .name(requestDto.toEntity().getName())
-                 .nickname(requestDto.toEntity().getNickname())
-                 .password(passwordEncoder.encode(requestDto.toEntity().getPassword()))
-                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                 .build()).getId();
+    public String memberLogin(UsersSaveRequestDto requestDto) {
+        Users member = usersRepository.findByNickname(requestDto.toEntity().getNickname())
+            .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 nickname 입니다."));
+            if (!passwordEncoder.matches(requestDto.toEntity().getPassword(), member.getPassword())) {
+                throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            }
+        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
+    }
+
+    @Transactional
+    public Long save(UsersSaveRequestDto requestDto) {
+        return usersRepository.save(requestDto.toEntity()).getId();
     }
 
     @Transactional

@@ -44,51 +44,53 @@ public class UsersApiController {
     // 회원가입
     @PostMapping("/api/v1/join")
     public Long join(@RequestBody UsersSaveRequestDto requestDto) {
-        return usersService.saveJoin(requestDto);
+        return usersService.memberJoin(requestDto);
     }
 
-    // 로그인
+    // 로그인: JWT 토큰을 획득.
     @PostMapping("/api/v1/login")
-    public String login(@RequestBody Map<String, String> user) {
-        Users member = usersRepository.findByNickname(user.get("nickname"))
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 nickname 입니다."));
-        if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
-        }
-        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
+    public String login(@RequestBody UsersSaveRequestDto requestDto) {
+        return usersService.memberLogin(requestDto);
     }
 
+    // 단순저장
     @PostMapping("/api/v1/users")
     public Long save(@RequestBody UsersSaveRequestDto requestDto) {
         return usersService.save(requestDto);
     }
 
+    // id 값으로 update
     @PutMapping("/api/v1/users/{id}")
     public Long update(@PathVariable Long id, @RequestBody UsersUpdateRequestDto requestDto) {
         return usersService.update(id, requestDto);
     }
 
+    // id 값으로 삭제
     @DeleteMapping("/api/v1/users/{id}")
     public Long delete(@PathVariable Long id) {
         usersService.delete(id);
         return id;
     }
 
+    // id 값으로 get
     @GetMapping("/api/v1/users/{id}")
     public UsersResponseDto findById (@PathVariable Long id) {
         return usersService.findById(id);
     }
 
+    // user 전체 값
     @GetMapping("/api/v1/users")
     public List<UsersListResponseDto> retrieveUsers() {
         return usersService.findAllDesc();
     }
 
+    // user 전체 값 paging 처리
     @GetMapping("/api/v1/users/pages")
     public Page<UsersResponseDto> retrievePageUsers(final Pageable pageable) {
         return usersService.retrievePageUsers(pageable).map(UsersResponseDto::new);
     }
 
+    // API 호출이 되는지 확인하는 간단한 api
     @GetMapping("/api/v1/users/test")
     public Users userTest() {
         return usersService.testUser();
