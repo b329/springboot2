@@ -7,13 +7,16 @@ import org.quantum.spin.entanglement.springboot.api.dto.UsersSaveRequestDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersUpdateRequestDto;
 import org.quantum.spin.entanglement.springboot.domain.users.Users;
 import org.quantum.spin.entanglement.springboot.domain.users.UsersRepository;
+import org.quantum.spin.entanglement.springboot.security.JwtTokenProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,9 +34,23 @@ Autowired 가 없다.
 public class UsersService {
     private final UsersRepository usersRepository;
 
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Transactional
     public Long save(UsersSaveRequestDto requestDto) {
         return usersRepository.save(requestDto.toEntity()).getId();
+    }
+
+    @Transactional
+    public Long saveJoin(UsersSaveRequestDto requestDto) {
+        return usersRepository.save(
+                Users.builder()
+                 .name(requestDto.toEntity().getName())
+                 .nickname(requestDto.toEntity().getNickname())
+                 .password(passwordEncoder.encode(requestDto.toEntity().getPassword()))
+                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
+                 .build()).getId();
     }
 
     @Transactional

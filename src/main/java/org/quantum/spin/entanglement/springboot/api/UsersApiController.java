@@ -43,13 +43,8 @@ public class UsersApiController {
 
     // 회원가입
     @PostMapping("/api/v1/join")
-    public Long join(@RequestBody Map<String, String> user) {
-        return usersRepository.save(Users.builder()
-                .name(user.get("name"))
-                .nickname(user.get("nickname"))
-                .password(passwordEncoder.encode(user.get("password")))
-                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                .build()).getId();
+    public Long join(@RequestBody UsersSaveRequestDto requestDto) {
+        return usersService.saveJoin(requestDto);
     }
 
     // 로그인
