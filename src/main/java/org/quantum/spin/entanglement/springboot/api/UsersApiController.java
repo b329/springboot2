@@ -42,7 +42,7 @@ public class UsersApiController {
     private final UsersRepository usersRepository;
 
     // 회원가입
-    @PostMapping("/join")
+    @PostMapping("/api/v1/join")
     public Long join(@RequestBody Map<String, String> user) {
         return usersRepository.save(Users.builder()
                 .name(user.get("name"))
@@ -53,7 +53,7 @@ public class UsersApiController {
     }
 
     // 로그인
-    @PostMapping("/login")
+    @PostMapping("/api/v1/login")
     public String login(@RequestBody Map<String, String> user) {
         Users member = usersRepository.findByNickname(user.get("nickname"))
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 nickname 입니다."));
