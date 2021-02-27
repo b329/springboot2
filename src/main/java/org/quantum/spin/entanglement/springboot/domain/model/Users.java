@@ -1,7 +1,7 @@
-package org.quantum.spin.entanglement.springboot.domain.users;
+package org.quantum.spin.entanglement.springboot.domain.model;
 
 import lombok.*;
-import org.quantum.spin.entanglement.springboot.domain.users.BaseTimeEntity;
+import org.quantum.spin.entanglement.springboot.domain.model.BaseTimeEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

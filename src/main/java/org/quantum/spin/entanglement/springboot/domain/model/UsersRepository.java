@@ -1,4 +1,4 @@
-package org.quantum.spin.entanglement.springboot.domain.users;
+package org.quantum.spin.entanglement.springboot.domain.model;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
