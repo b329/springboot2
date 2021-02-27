@@ -12,7 +12,7 @@ public class UsersListResponseDto {
     private  String nickname;
     private  String password;
     private  Integer phoneNumber;
-    private  String gender;
+    private  String email;
 
     private LocalDateTime modifiedDate;
 
@@ -22,7 +22,7 @@ public class UsersListResponseDto {
         this.nickname = entity.getNickname();
         this.password = entity.getPassword();
         this.phoneNumber = entity.getPhoneNumber();
-        this.gender = entity.getGender();
+        this.email = entity.getEmail();
 
         this.modifiedDate = entity.getModifiedDate();
 

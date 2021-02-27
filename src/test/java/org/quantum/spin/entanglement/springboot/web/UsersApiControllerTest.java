@@ -46,14 +46,14 @@ public class UsersApiControllerTest {
         String nickname = "nickname";
         String password = "password";
         Integer phoneNumber = 123456;
-        String gender = "gender";
+        String email = "email";
 
         UsersSaveRequestDto requestDto = UsersSaveRequestDto.builder()
                 .name(name)
                 .nickname(nickname)
                 .password(password)
                 .phoneNumber(phoneNumber)
-                .gender(gender)
+                .email(email)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/users";

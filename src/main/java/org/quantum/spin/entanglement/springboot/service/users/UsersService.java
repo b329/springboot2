@@ -12,9 +12,12 @@ import org.quantum.spin.entanglement.springboot.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,14 +43,16 @@ public class UsersService {
     private UsersMapper usersMapper;
 
     @Transactional
-    public Long memberJoin(UsersSaveRequestDto requestDto) {
-        return usersRepository.save(
+    public void memberJoin(UsersSaveRequestDto requestDto) {
+
+        usersRepository.save(
                 Users.builder()
                         .name(requestDto.toEntity().getName())
                         .nickname(requestDto.toEntity().getNickname())
                         .password(passwordEncoder.encode(requestDto.toEntity().getPassword()))
                         .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
                         .build()).getId();
+
     }
 
     @Transactional
@@ -117,7 +122,7 @@ public class UsersService {
         Users testUser = new Users();
         testUser.setName("testName");
         testUser.setNickname("testNickname");
-        testUser.setGender("testGender");
+        testUser.setEmail("testEmail");
         testUser.setPassword("testPassword");
 
         return testUser;

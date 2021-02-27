@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.quantum.spin.entanglement.springboot.domain.model.Users;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 /* Entity 클래스와 유사한 Dto 클래스를 추가로 생성한 이유는 Entity 클래스를 Request/Response 클래스로
 *  사용하지 않기 위해사이다. Entity 클래스는 데이터베이스와 맞닿은 클래스이고
 *  Entity 클래스를 변경하면 스키마 자체가 변경이 된다.
@@ -17,19 +21,30 @@ import org.quantum.spin.entanglement.springboot.domain.model.Users;
 @NoArgsConstructor
 
 public class UsersSaveRequestDto {
+
+    @NotEmpty(message = "이름에 공백을 넣을 수 없습니다.")
     private  String name;
+
+    @NotEmpty(message = "닉네임에 공백을 넣을 수 없습니다.")
     private  String nickname;
+
+    @NotEmpty(message = "패스워드에 공백을 넣을 수 없습니다.")
     private  String password;
+
+    @Pattern(regexp = "^[0-9]*$")
     private  Integer phoneNumber;
-    private  String gender;
+
+    @NotEmpty(message = "이메일에 공백을 넣을 수 없습니다.")
+    @Pattern(regexp = "[a-zA-z0-9]+@[a-zA-z]+[.]+[a-zA-z.]+")
+    private  String email;
 
     @Builder
-    public UsersSaveRequestDto(String name, String nickname, String password, Integer phoneNumber, String gender) {
+    public UsersSaveRequestDto(String name, String nickname, String password, Integer phoneNumber, String email) {
         this.name = name;
         this.nickname = nickname;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.gender = gender;
+        this.email = email;
     }
 
     public Users toEntity() {
@@ -38,7 +53,7 @@ public class UsersSaveRequestDto {
                     .nickname(nickname)
                     .password(password)
                     .phoneNumber(phoneNumber)
-                    .gender(gender)
+                    .email(email)
                     .build();
     }
 }

@@ -11,9 +11,13 @@ import org.quantum.spin.entanglement.springboot.security.JwtTokenProvider;
 import org.quantum.spin.entanglement.springboot.service.users.UsersService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,8 +42,15 @@ public class UsersApiController {
 
     // 회원가입
     @PostMapping("/api/v1/join")
-    public Long join(@RequestBody UsersSaveRequestDto requestDto) {
-        return usersService.memberJoin(requestDto);
+    @ResponseBody
+    public ResponseEntity join(@RequestBody @Valid UsersSaveRequestDto requestDto, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+        }
+        usersService.memberJoin(requestDto);
+
+        return ResponseEntity.ok(requestDto);
     }
 
     // 로그인: JWT 토큰을 획득.
