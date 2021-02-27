@@ -7,7 +7,9 @@ import org.quantum.spin.entanglement.springboot.api.dto.UsersSaveRequestDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersUpdateRequestDto;
 import org.quantum.spin.entanglement.springboot.domain.users.Users;
 import org.quantum.spin.entanglement.springboot.domain.users.UsersRepository;
+import org.quantum.spin.entanglement.springboot.mapper.UsersMapper;
 import org.quantum.spin.entanglement.springboot.security.JwtTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -33,9 +35,11 @@ Autowired 가 없다.
 @Service
 public class UsersService {
     private final UsersRepository usersRepository;
-
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    // Mybatis 를 이용한 데이터 처리
+    @Autowired
+    private UsersMapper usersMapper;
 
     @Transactional
     public Long memberJoin(UsersSaveRequestDto requestDto) {
@@ -95,9 +99,17 @@ public class UsersService {
         return usersRepository.findAll(pageable);
     }
 
-
+    @Transactional(readOnly = true)
     public UsersResponseDto findById(Long id) {
         Users entity = usersRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 데이터가 없습니다. id=" + id));
+        return new UsersResponseDto(entity);
+    }
+
+    /** Mybatis 를 이용한 데이터 조회 **/
+    @Transactional(readOnly = true)
+    public UsersResponseDto findById2(Long id) {
+        Users entity = usersMapper.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 데이터가 없습니다. id=" + id));
         return new UsersResponseDto(entity);
     }

@@ -90,6 +90,13 @@ public class UsersApiController {
         return usersService.retrievePageUsers(pageable).map(UsersResponseDto::new);
     }
 
+    /** Mybatis 쿼리를 이용한 조회 **/
+    // id 값으로 get
+    @GetMapping("/api/v2/users/{id}")
+    public UsersResponseDto findById2 (@PathVariable Long id) {
+        return usersService.findById2(id);
+    }
+
     // API 호출이 되는지 확인하는 간단한 api
     @GetMapping("/api/v1/users/test")
     public Users userTest() {
