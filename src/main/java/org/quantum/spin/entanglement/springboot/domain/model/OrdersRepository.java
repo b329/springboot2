@@ -1,4 +1,4 @@
-package org.quantum.spin.entanglement.springboot.domain.orders;
+package org.quantum.spin.entanglement.springboot.domain.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

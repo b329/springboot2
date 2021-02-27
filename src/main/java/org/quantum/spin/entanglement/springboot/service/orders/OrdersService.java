@@ -2,8 +2,8 @@ package org.quantum.spin.entanglement.springboot.service.orders;
 
 import lombok.RequiredArgsConstructor;
 import org.quantum.spin.entanglement.springboot.api.dto.*;
-import org.quantum.spin.entanglement.springboot.domain.orders.Orders;
-import org.quantum.spin.entanglement.springboot.domain.orders.OrdersRepository;
+import org.quantum.spin.entanglement.springboot.domain.model.Orders;
+import org.quantum.spin.entanglement.springboot.domain.model.OrdersRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

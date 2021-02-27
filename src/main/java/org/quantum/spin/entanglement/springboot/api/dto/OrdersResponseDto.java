@@ -1,7 +1,7 @@
 package org.quantum.spin.entanglement.springboot.api.dto;
 
 import lombok.Getter;
-import org.quantum.spin.entanglement.springboot.domain.orders.Orders;
+import org.quantum.spin.entanglement.springboot.domain.model.Orders;
 
 import java.time.LocalDateTime;
 

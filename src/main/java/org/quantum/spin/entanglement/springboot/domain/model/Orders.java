@@ -1,4 +1,4 @@
-package org.quantum.spin.entanglement.springboot.domain.orders;
+package org.quantum.spin.entanglement.springboot.domain.model;
 
 import lombok.Builder;
 import lombok.Getter;

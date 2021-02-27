@@ -5,21 +5,16 @@ import org.quantum.spin.entanglement.springboot.api.dto.UsersListResponseDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersResponseDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersSaveRequestDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersUpdateRequestDto;
-import org.quantum.spin.entanglement.springboot.domain.users.Users;
-import org.quantum.spin.entanglement.springboot.domain.users.UsersRepository;
+import org.quantum.spin.entanglement.springboot.domain.model.Users;
+import org.quantum.spin.entanglement.springboot.domain.model.UsersRepository;
 import org.quantum.spin.entanglement.springboot.security.JwtTokenProvider;
 import org.quantum.spin.entanglement.springboot.service.users.UsersService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController

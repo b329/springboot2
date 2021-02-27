@@ -1,4 +1,4 @@
-package org.quantum.spin.entanglement.springboot.domain.orders;
+package org.quantum.spin.entanglement.springboot.domain.model;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,6 +18,8 @@ public class BaseTimeEntity {
     @CreatedDate
     private LocalDateTime createDate;
 
-}
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
 
+}
 

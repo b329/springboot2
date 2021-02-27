@@ -1,6 +1,6 @@
 package org.quantum.spin.entanglement.springboot.security.user;
 
-import org.quantum.spin.entanglement.springboot.domain.users.UsersRepository;
+import org.quantum.spin.entanglement.springboot.domain.model.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

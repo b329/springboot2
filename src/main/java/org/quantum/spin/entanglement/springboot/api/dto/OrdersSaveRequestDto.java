@@ -3,8 +3,7 @@ package org.quantum.spin.entanglement.springboot.api.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.quantum.spin.entanglement.springboot.domain.orders.Orders;
-import org.quantum.spin.entanglement.springboot.domain.users.Users;
+import org.quantum.spin.entanglement.springboot.domain.model.Orders;
 
 /* Entity 클래스와 유사한 Dto 클래스를 추가로 생성한 이유는 Entity 클래스를 Request/Response 클래스로
 *  사용하지 않기 위해사이다. Entity 클래스는 데이터베이스와 맞닿은 클래스이고
