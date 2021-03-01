@@ -45,11 +45,20 @@ public class UsersService {
     @Transactional
     public void memberJoin(UsersSaveRequestDto requestDto) {
 
+        boolean member = usersRepository.findByNickname(requestDto.toEntity().getNickname())
+                .isPresent();
+        if (member) {
+            throw new IllegalArgumentException("이미 가입된 닉네임 입니다.");
+        }
+
         usersRepository.save(
                 Users.builder()
                         .name(requestDto.toEntity().getName())
                         .nickname(requestDto.toEntity().getNickname())
                         .password(passwordEncoder.encode(requestDto.toEntity().getPassword()))
+                        .phoneNumber(requestDto.toEntity().getPhoneNumber())
+                        .email(requestDto.toEntity().getEmail())
+                        .gender(requestDto.toEntity().getGender())
                         .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
                         .build()).getId();
 
@@ -75,7 +84,7 @@ public class UsersService {
         Users users = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 데이터가 없습니다. id="+ id));
 
-        users.update(requestDto.getName(), requestDto.getNickname(), requestDto.getPassword(), requestDto.getPhoneNumber(), requestDto.getGender());
+        users.update(requestDto.getName(), requestDto.getNickname(), requestDto.getPassword(), requestDto.getPhoneNumber(), requestDto.getEmail(), requestDto.getGender());
 
                 return id;
     }
@@ -108,6 +117,21 @@ public class UsersService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 데이터가 없습니다. id=" + id));
         return new UsersResponseDto(entity);
     }
+
+    @Transactional(readOnly = true)
+    public UsersResponseDto findByName(String name) {
+        Users entity = usersRepository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException("해당 데이터가 없습니다. name=" + name));
+        return new UsersResponseDto(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public UsersResponseDto findByEmail(String email) {
+        Users entity = usersRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 데이터가 없습니다. email=" + email));
+        return new UsersResponseDto(entity);
+    }
+
 
     /** Mybatis 를 이용한 데이터 조회 **/
     @Transactional(readOnly = true)

@@ -11,8 +11,9 @@ public class UsersResponseDto {
     private  String name;
     private  String nickname;
     private  String password;
-    private  Integer phoneNumber;
+    private  String phoneNumber;
     private  String email;
+    private  String gender;
 
     private LocalDateTime modifiedDate;
 
@@ -23,6 +24,7 @@ public class UsersResponseDto {
         this.password = entity.getPassword();
         this.phoneNumber = entity.getPhoneNumber();
         this.email = entity.getEmail();
+        this.gender = entity.getGender();
 
         this.modifiedDate = entity.getModifiedDate();
 

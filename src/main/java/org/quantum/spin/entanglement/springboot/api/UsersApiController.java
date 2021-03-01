@@ -1,5 +1,7 @@
 package org.quantum.spin.entanglement.springboot.api;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersListResponseDto;
 import org.quantum.spin.entanglement.springboot.api.dto.UsersResponseDto;
@@ -66,31 +68,64 @@ public class UsersApiController {
     }
 
     // id 값으로 update
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @PutMapping("/api/v1/users/{id}")
     public Long update(@PathVariable Long id, @RequestBody UsersUpdateRequestDto requestDto) {
         return usersService.update(id, requestDto);
     }
 
     // id 값으로 삭제
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @DeleteMapping("/api/v1/users/{id}")
     public Long delete(@PathVariable Long id) {
         usersService.delete(id);
         return id;
     }
 
-    // id 값으로 get
+    // id 값으로 회원 조회
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @GetMapping("/api/v1/users/{id}")
     public UsersResponseDto findById (@PathVariable Long id) {
         return usersService.findById(id);
     }
 
+    // name 값으로 회원 조회
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @GetMapping("/api/v1/users/name/{name}")
+    public UsersResponseDto findByName (@PathVariable String name) {
+        return usersService.findByName(name);
+    }
+
+    // email 값으로 회원 조회
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = false, dataType = "String", paramType = "header")
+    })
+    @GetMapping("/api/v1/users/email/{email}")
+    public UsersResponseDto findByEmail (@PathVariable String email) {
+        return usersService.findByEmail(email);
+    }
+
     // user 전체 값
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @GetMapping("/api/v1/users")
     public List<UsersListResponseDto> retrieveUsers() {
         return usersService.findAllDesc();
     }
 
     // user 전체 값 paging 처리
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @GetMapping("/api/v1/users/pages")
     public Page<UsersResponseDto> retrievePageUsers(final Pageable pageable) {
         return usersService.retrievePageUsers(pageable).map(UsersResponseDto::new);
@@ -98,6 +133,9 @@ public class UsersApiController {
 
     /** Mybatis 쿼리를 이용한 조회 **/
     // id 값으로 get
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @GetMapping("/api/v2/users/{id}")
     public UsersResponseDto findById2 (@PathVariable Long id) {
         return usersService.findById2(id);

@@ -45,7 +45,7 @@ public class UsersApiControllerTest {
         String name = "name";
         String nickname = "nickname";
         String password = "password";
-        Integer phoneNumber = 123456;
+        String phoneNumber = "123456";
         String email = "email";
 
         UsersSaveRequestDto requestDto = UsersSaveRequestDto.builder()

@@ -50,6 +50,14 @@ public class ExceptionController {
                     code = ErrorCode.MIN_VALUE.getCode();
                     description = ErrorCode.MIN_VALUE.getDescription();
                     break;
+                case "Size":
+                    code = ErrorCode.SIZE.getCode();
+                    description = ErrorCode.SIZE.getDescription();
+                    break;
+                case "Pattern":
+                    code = ErrorCode.PATTERN.getCode();
+                    description = ErrorCode.PATTERN.getDescription();
+                    break;
             }
         }
 
